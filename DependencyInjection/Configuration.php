@@ -406,6 +406,16 @@ final class Configuration implements ConfigurationInterface
                     ->canBeEnabled()
                     ->children()
                         ->scalarNode('exception_controller')->defaultNull()->end()
+                        ->scalarNode('exception_view_format')
+                            ->defaultNull()
+                            ->validate()
+                                ->ifTrue(function ($v) {
+                                    if (!in_array($v, ['json', 'xml', 'html'])) {
+                                        return true;
+                                    }
+                                })
+                                ->thenInvalid('View format can only be "json", "xml", or "html".')
+                        ->end()
                         ->scalarNode('service')->defaultNull()->end()
                         ->arrayNode('codes')
                             ->useAttributeAsKey('name')
