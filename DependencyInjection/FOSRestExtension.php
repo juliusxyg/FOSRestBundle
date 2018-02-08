@@ -351,6 +351,10 @@ class FOSRestExtension extends Extension
                 $container->getDefinition('fos_rest.exception_listener')->replaceArgument(0, 'fos_rest.exception.twig_controller:showAction');
             }
 
+            if ($config['exception']['exception_view_format']) {
+                $container->getDefinition('fos_rest.exception_listener')->addMethodCall("setFormat", [$config['exception']['exception_view_format']]);
+            }
+
             $container->getDefinition('fos_rest.exception.codes_map')
                 ->replaceArgument(0, $config['exception']['codes']);
             $container->getDefinition('fos_rest.exception.messages_map')

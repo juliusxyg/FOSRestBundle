@@ -28,6 +28,11 @@ use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 class ExceptionListener extends HttpKernelExceptionListener
 {
     /**
+     * @var string (json|html|xml)
+     */
+    private $format;
+
+    /**
      * {@inheritdoc}
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
@@ -64,6 +69,22 @@ class ExceptionListener extends HttpKernelExceptionListener
         $request = $request->duplicate(null, null, $attributes);
         $request->setMethod('GET');
 
+        if ($this->format !== null) {
+            $request->setRequestFormat($this->format);
+        }
+
         return $request;
+    }
+
+    /**
+     * set exception dup request format, json|xml|html.
+     *
+     * @param string     $format   the request format
+     */
+    public function setFormat($format)
+    {
+        if (in_array($format, ['json', 'xml', 'html'])) {
+            $this->format = $format;
+        }
     }
 }
