@@ -167,6 +167,9 @@ class ParamFetcherTest extends WebTestCase
     public function testValidQueryParameter()
     {
         $this->client->request('POST', '/params?foz=val1');
+        $this->assertEquals(array(
+            'foz' => 'val1',
+        ), $this->getData());
     }
 
     /**

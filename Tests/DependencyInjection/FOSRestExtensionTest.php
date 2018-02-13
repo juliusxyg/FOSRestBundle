@@ -325,12 +325,14 @@ class FOSRestExtensionTest extends TestCase
     {
         $config = ['fos_rest' => ['body_converter' => ['enabled' => false], 'serializer' => ['version' => '1.0']]];
         $this->extension->load($config, $this->container);
+        $this->assertFalse($this->container->has('fos_rest.converter.request_body'));
     }
 
     public function testBodyConvertorDisabledAndSerializerGroupsGiven()
     {
         $config = ['fos_rest' => ['body_converter' => ['enabled' => false], 'serializer' => ['groups' => ['Default']]]];
         $this->extension->load($config, $this->container);
+        $this->assertFalse($this->container->has('fos_rest.converter.request_body'));
     }
 
     /**
