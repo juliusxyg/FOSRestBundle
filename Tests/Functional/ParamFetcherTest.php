@@ -168,7 +168,11 @@ class ParamFetcherTest extends WebTestCase
     {
         $this->client->request('POST', '/params?foz=val1');
         $this->assertEquals(array(
-            'foz' => 'val1',
+            'raw' => 'invalid',
+            'map' => 'invalid2 %',
+            'bar' => null,
+            'foz' => '',
+            'baz' => ''
         ), $this->getData());
     }
 
