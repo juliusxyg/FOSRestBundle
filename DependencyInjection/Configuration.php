@@ -51,8 +51,8 @@ final class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('fos_rest', 'array');
+        $treeBuilder = new TreeBuilder('fos_rest');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
